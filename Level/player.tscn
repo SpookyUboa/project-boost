@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://cttppjctry61y"]
+
+[ext_resource type="Script" path="res://Script/Player.gd" id="1_et203"]
+[ext_resource type="AudioStream" uid="uid://cqd1ve6r7g320" path="res://Audio/SFX - Death Explosion.ogg" id="2_1qm4a"]
+[ext_resource type="PackedScene" uid="uid://ux6ivcx1ovdp" path="res://Particles/booster_particles.tscn" id="2_mqnr3"]
+[ext_resource type="AudioStream" uid="uid://gfpv0qcw8u4o" path="res://Audio/SFX - Success.ogg" id="3_o7kdb"]
+[ext_resource type="AudioStream" uid="uid://bssiqa4ndorqe" path="res://Audio/SFX - Main engine thrust.ogg" id="4_s38mv"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_rx4gf"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_mjjxh"]
+
+[node name="Player" type="RigidBody3D"]
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+max_contacts_reported = 10
+contact_monitor = true
+script = ExtResource("1_et203")
+
+[node name="BoosterParticles" parent="." instance=ExtResource("2_mqnr3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="BoosterParticlesLeft" parent="." instance=ExtResource("2_mqnr3")]
+transform = Transform3D(0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0, 0, 1, -0.4, -1, 0)
+
+[node name="BoosterParticlesRight" parent="." instance=ExtResource("2_mqnr3")]
+transform = Transform3D(0.906308, -0.422618, 0, 0.422618, 0.906308, 0, 0, 0, 1, 0.4, -1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_rx4gf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_mjjxh")
+
+[node name="ExplosionAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_1qm4a")
+
+[node name="VictoryAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_o7kdb")
+
+[node name="RocketAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_s38mv")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

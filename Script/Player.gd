@@ -16,6 +16,8 @@ var is_transitioning : bool = false
 @onready var booster_particles: GPUParticles3D = $BoosterParticles
 @onready var booster_particles_left: GPUParticles3D = $BoosterParticlesLeft
 @onready var booster_particles_right: GPUParticles3D = $BoosterParticlesRight
+@onready var success_particles: GPUParticles3D = $SuccessParticles
+@onready var explosion_particles: GPUParticles3D = $ExplosionParticles
 
 
 func _process(delta: float) -> void:
@@ -52,6 +54,7 @@ func _on_body_entered(body: Node) -> void:
 func crash_sequence() -> void: 
 	print("Absolutely smacked")
 	explosion_audio.play()
+	explosion_particles.emitting = true
 	set_process(false)
 	tween = create_tween()
 	tween.tween_interval(2.0)
@@ -60,6 +63,7 @@ func crash_sequence() -> void:
 func complete_level(next_level : String) -> void:
 	print("Landed safely!!")
 	victory_audio.play()
+	success_particles.emitting = true
 	tween = create_tween()
 	tween.tween_interval(2.0)
 	tween.tween_callback(

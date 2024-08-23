@@ -20,7 +20,7 @@ max_contacts_reported = 10
 contact_monitor = true
 script = ExtResource("1_et203")
 
-[node name="rocket" parent="." instance=ExtResource("2_dc16y")]
+[node name="Model" parent="." instance=ExtResource("2_dc16y")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1, 0)
 
 [node name="BoosterParticles" parent="." instance=ExtResource("2_mqnr3")]

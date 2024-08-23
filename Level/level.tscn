@@ -1,21 +1,22 @@
-[gd_scene load_steps=9 format=3 uid="uid://ba51h5dkadly4"]
+[gd_scene load_steps=10 format=3 uid="uid://ba51h5dkadly4"]
 
 [ext_resource type="PackedScene" uid="uid://cttppjctry61y" path="res://Level/player.tscn" id="1_p5fm5"]
 [ext_resource type="Script" path="res://Script/Landing Pad.gd" id="1_tsai0"]
+[ext_resource type="PackedScene" uid="uid://dwldu3ejat010" path="res://Mesh/background.glb" id="3_icpfp"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e2tkg"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-sky_energy_multiplier = 4.2
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qo2n1"]
+sky_top_color = Color(0.160784, 0.196078, 0.25098, 1)
+sky_horizon_color = Color(0.603922, 0.639216, 0.687255, 1)
+sky_energy_multiplier = 0.7
+ground_bottom_color = Color(0.254902, 0.360784, 0.498039, 1)
+ground_horizon_color = Color(0.603922, 0.639216, 0.687255, 1)
 
-[sub_resource type="Sky" id="Sky_uvyxb"]
-sky_material = SubResource("ProceduralSkyMaterial_e2tkg")
+[sub_resource type="Sky" id="Sky_npevb"]
+sky_material = SubResource("ProceduralSkyMaterial_qo2n1")
 
-[sub_resource type="Environment" id="Environment_0trg5"]
+[sub_resource type="Environment" id="Environment_fy8w1"]
 background_mode = 2
-sky = SubResource("Sky_uvyxb")
-tonemap_mode = 2
-glow_enabled = true
+sky = SubResource("Sky_npevb")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_btfr5"]
 albedo_color = Color(0.403922, 0.188235, 0.109804, 0.854902)
@@ -28,12 +29,14 @@ albedo_color = Color(0.0901961, 0.713726, 0.0313726, 1)
 
 [node name="Level" type="Node3D"]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_0trg5")
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.998719, 0.0340496, -0.03742, 0, 0.739631, 0.673012, 0.0505928, 0.672151, -0.738684, 0, 0, 0)
+transform = Transform3D(0.79653, -0.273542, 0.53918, 0, 0.891798, 0.452435, -0.604599, -0.360378, 0.710343, 0, 0, 0)
+light_color = Color(0.760784, 0.870588, 0.886275, 1)
+light_energy = 2.35
 shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fy8w1")
 
 [node name="Floor" type="CSGBox3D" parent="." groups=["Hazard"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
@@ -57,8 +60,12 @@ next_level = "res://Level/level2.tscn"
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 3, 7)
+far = 8000.0
 
 [node name="Player" parent="." instance=ExtResource("1_p5fm5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.25, 0)
 linear_damp = 1.0
 angular_damp = 3.0
+
+[node name="background" parent="." instance=ExtResource("3_icpfp")]
+transform = Transform3D(0.954821, 0.232906, -0.184583, 0.141798, 0.188798, 0.971724, 0.26117, -0.953997, 0.147243, 180.497, -149.042, -226.401)
